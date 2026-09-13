@@ -1,0 +1,31 @@
+{
+  "repository": "https://github.com/excalidraw/excalidraw",
+  "tag": "v0.18.1",
+  "archive": "https://codeload.github.com/excalidraw/excalidraw/tar.gz/refs/tags/v0.18.1",
+  "archiveSha256": "be44d1d10865ef0ab2474b59e1430eb12e55eb84a3663e7d11818b8ff6a5c93c",
+  "imported": [
+    "packages/",
+    "LICENSE",
+    "package.json",
+    "tsconfig.json"
+  ],
+  "modifiedUpstreamFiles": [
+    "packages/excalidraw/actions/actionToggleViewMode.tsx",
+    "packages/excalidraw/appState.ts",
+    "packages/excalidraw/components/Actions.tsx",
+    "packages/excalidraw/components/App.tsx",
+    "packages/excalidraw/components/LayerUI.tsx",
+    "packages/excalidraw/components/MobileMenu.tsx",
+    "packages/excalidraw/components/TTDDialog/TTDDialogOutput.tsx",
+    "packages/excalidraw/css/styles.scss",
+    "packages/excalidraw/data/restore.ts",
+    "packages/excalidraw/hooks/useOutsideClick.ts",
+    "packages/excalidraw/renderer/renderElement.ts",
+    "packages/excalidraw/scene/Shape.ts",
+    "packages/excalidraw/types.ts"
+  ],
+  "addedSource": [
+    "packages/excalidraw/interactive/",
+    "packages/excalidraw/components/InteractiveTools.tsx"
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "jsx": "react-jsx",
+    "strict": true,
+    "skipLibCheck": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "allowJs": true,
+    "types": ["vite/client", "node"],
+    "baseUrl": ".",
+    "paths": {
+      "@excalidraw/excalidraw": ["vendor/excalidraw/packages/excalidraw/index.tsx"],
+      "@excalidraw/excalidraw/*": ["vendor/excalidraw/packages/excalidraw/*"],
+      "@excalidraw/math": ["vendor/excalidraw/packages/math/index.ts"],
+      "@excalidraw/math/*": ["vendor/excalidraw/packages/math/*"],
+      "@excalidraw/utils": ["vendor/excalidraw/packages/utils/index.ts"],
+      "@excalidraw/utils/*": ["vendor/excalidraw/packages/utils/*"],
+      "browser-fs-access": ["node_modules/browser-fs-access/index.d.ts"]
+    }
+  },
+  "include": ["src", "vite.config.ts", "vendor/excalidraw/packages/*/global.d.ts", "vendor/excalidraw/packages/excalidraw/vite-env.d.ts"]
+}

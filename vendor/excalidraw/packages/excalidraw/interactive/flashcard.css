@@ -1,0 +1,177 @@
+.excalidraw .ToolIcon.interactive-mode-toggle {
+  width: auto;
+  gap: 0.3rem;
+  padding: 0 0.65rem;
+  font-size: 0.75rem;
+}
+.excalidraw.theme--dark .component-host {
+  filter: var(--theme-filter);
+}
+.component-host {
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.flashcard {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  container-type: size;
+  perspective: 1200px;
+  pointer-events: none;
+  font-family: "Segoe UI", system-ui, sans-serif;
+}
+.flashcard.is-interactive {
+  pointer-events: auto;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+.flashcard-turn {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transition: transform 360ms cubic-bezier(0.2, 0.65, 0.25, 1);
+}
+.flashcard[data-side="back"] .flashcard-turn {
+  transform: rotateY(180deg);
+}
+.card-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+}
+.card-paper {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.card-ruling {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(
+    to bottom,
+    transparent calc(100% - 1px),
+    currentColor 0
+  );
+  background-size: 100% 10cqh;
+  background-position: 0 23cqh;
+  opacity: 0.12;
+}
+.card-ruling::before {
+  content: "";
+  position: absolute;
+  top: 23cqh;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: currentColor;
+}
+.card-back {
+  transform: rotateY(180deg);
+}
+.card-side-label {
+  position: absolute;
+  top: 8cqh;
+  left: 8cqw;
+  font-size: 2.3cqw;
+  font-weight: 550;
+  letter-spacing: 0.22em;
+  color: inherit;
+  opacity: 0.65;
+}
+.card-text-area {
+  position: absolute;
+  top: 28cqh;
+  left: 8cqw;
+  right: 8cqw;
+  bottom: 17cqh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.card-text-area p,
+.card-text-area textarea {
+  margin: 0;
+  width: 100%;
+  max-height: 100%;
+  font: inherit;
+  font-size: 7.4cqw;
+  font-weight: 700;
+  line-height: 1.38;
+  text-align: center;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  color: inherit;
+}
+.card-back .card-text-area p,
+.card-back .card-text-area textarea {
+  font-size: 6.3cqw;
+  font-weight: 400;
+}
+.card-text-area p {
+  overflow: auto;
+  scrollbar-width: thin;
+}
+.card-text-area p.empty-text {
+  font-size: 4.2cqw;
+  font-weight: 400;
+  color: inherit;
+  opacity: 0.6;
+}
+.excalidraw .flashcard .card-text-area textarea {
+  height: 100%;
+  resize: none;
+  border: 0;
+  outline: 1px dashed currentColor;
+  outline-offset: 8px;
+  padding: 0;
+  background: transparent;
+  pointer-events: auto;
+  border-radius: 2px;
+  white-space: pre-wrap;
+  color: inherit;
+}
+.card-flip {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 13cqw;
+  height: 17cqh;
+  min-width: 30px;
+  min-height: 30px;
+  background: color-mix(in srgb, currentColor 8%, transparent);
+  color: inherit;
+  border: 0;
+  border-radius: 18px 0 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: auto;
+}
+.card-flip:hover {
+  background: color-mix(in srgb, currentColor 16%, transparent);
+}
+.card-flip svg {
+  width: 5.5cqw;
+  height: 5.5cqw;
+  min-width: 18px;
+  min-height: 18px;
+}
+.unknown-component {
+  padding: 20px;
+  height: 100%;
+  background: #f5efe0;
+  border: 1px solid #d8ccac;
+  font: 18px system-ui;
+}
+.unknown-component small {
+  display: block;
+  margin-top: 12px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .flashcard-turn {
+    transition: none;
+  }
+}
