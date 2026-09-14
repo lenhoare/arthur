@@ -19,6 +19,11 @@ npm run dev
 ## Use
 
 - **Flashcard:** the card icon in Excalidraw's existing toolbar adds a card.
+- **Student chooser:** the wheel icon adds a chooser. Double-click to enter names,
+  one per line. In Interact mode, tap to spin; the result appears for two seconds.
+  The label matches the winning slice. In Edit mode, press the centre circle to
+  spin without a label; double-click elsewhere to edit names.
+  Names stay in the draw and save with the board.
 - **Edit / Interact:** the labelled toolbar control switches between editing
   and using the board. Alt+R uses the same native mode action. The original
   unlabelled padlock still keeps a drawing tool active (Q).
@@ -36,7 +41,7 @@ npm run dev
 - `vendor/excalidraw/packages/excalidraw/components/InteractiveTools.tsx`: native
   toolbar additions using Excalidraw's ToolButton and existing view-mode action.
 - `vendor/excalidraw/packages/excalidraw/interactive/`: registry, component data,
-  creation and flashcard rendering.
+  creation, flashcard and student chooser rendering.
 - `components/App.tsx` in the editor: component rendering and direct editing
   through native hit testing, without a surrounding DOM event interceptor.
 - `renderer/renderElement.ts` and `scene/Shape.ts`: live components render their
@@ -74,5 +79,6 @@ fallback because OS file picker dialogs cannot be driven through the DOM.
 - DOM components still inherit embeddable layering and frame-clipping limitations;
   arbitrary drawing/component interleaving needs its own native rendering work.
 - Text font/layout controls, static exports and other component types are future
-  incremental steps. Long card text currently scrolls; A6 is the initial proportion.
+  incremental steps. Long card text currently scrolls; new cards are 360 × 240
+  pixels in 6 × 4 proportions.
 - Single-user operation; no cloud storage or collaboration.

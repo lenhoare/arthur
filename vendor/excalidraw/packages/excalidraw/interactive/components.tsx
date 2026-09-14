@@ -8,6 +8,7 @@ import type {
 import type { AppClassProperties } from "../types";
 import { getComponent } from "./registry";
 import "./Flashcard";
+import "./Chooser";
 import "./flashcard.css";
 export { getStoredComponent } from "./data";
 import { getStoredComponent } from "./data";

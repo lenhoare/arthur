@@ -13,6 +13,7 @@
   pointer-events: none;
 }
 .flashcard {
+  --card-line-spacing: calc(100cqh / 12);
   position: relative;
   width: 100%;
   height: 100%;
@@ -49,37 +50,17 @@
 }
 .card-ruling {
   position: absolute;
-  inset: 0;
+  inset: calc(2 * var(--card-line-spacing)) 0 0;
   background-image: linear-gradient(
     to bottom,
-    transparent calc(100% - 1px),
-    currentColor 0
+    currentColor 1px,
+    transparent 1px
   );
-  background-size: 100% 10cqh;
-  background-position: 0 23cqh;
+  background-size: 100% var(--card-line-spacing);
   opacity: 0.12;
-}
-.card-ruling::before {
-  content: "";
-  position: absolute;
-  top: 23cqh;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: currentColor;
 }
 .card-back {
   transform: rotateY(180deg);
-}
-.card-side-label {
-  position: absolute;
-  top: 8cqh;
-  left: 8cqw;
-  font-size: 2.3cqw;
-  font-weight: 550;
-  letter-spacing: 0.22em;
-  color: inherit;
-  opacity: 0.65;
 }
 .card-text-area {
   position: absolute;
@@ -88,7 +69,8 @@
   right: 8cqw;
   bottom: 17cqh;
   display: flex;
-  align-items: center;
+  /* Keep displayed text at the same starting position as the textarea. */
+  align-items: flex-start;
   justify-content: center;
 }
 .card-text-area p,

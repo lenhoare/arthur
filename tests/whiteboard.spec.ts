@@ -404,3 +404,130 @@ test("toolbar creation is undoable and cards group with ordinary shapes", async 
   const after = (await cards(page).boundingBox())!;
   expect(after.x - before.x).toBeCloseTo(80, 0);
 });
+
+test("student chooser edits, spins to the indicated name, clears its label and reloads", async ({
+  page,
+}) => {
+  await page
+    .getByRole("button", { name: "Student chooser", exact: true })
+    .click();
+  const wheel = page.locator(".chooser");
+  const box = await wheel.boundingBox();
+  if (!box) throw new Error("No chooser");
+  await page.mouse.dblclick(box.x + box.width / 2, box.y + box.height / 3);
+  const input = page.getByRole("textbox", { name: "Edit chooser names" });
+  await input.fill("Alice\n\n Bob \nCharlie\nDaisy");
+  await input.press("Control+Enter");
+  await expect(wheel.locator("text")).toHaveText([
+    "Alice",
+    "Bob",
+    "Charlie",
+    "Daisy",
+  ]);
+  await page.keyboard.press("Control+z");
+  await expect(wheel.locator("text")).toHaveCount(0);
+  await page.keyboard.press("Control+Shift+z");
+  await expect(wheel.locator("text")).toHaveCount(4);
+  await page
+    .getByRole("button", { name: "Switch to interactive mode" })
+    .click();
+  await wheel.click();
+  await expect(wheel).toHaveAttribute("data-spinning", "true");
+  await wheel.click(); // A second tap must not restart an active spin.
+  await expect(wheel.getByRole("status")).toBeVisible({ timeout: 7000 });
+  const rotation = await wheel.locator("svg > g").getAttribute("transform");
+  const degrees = Number(rotation!.match(/rotate\(([^ ]+)/)![1]);
+  const index = Math.floor(((360 - (degrees % 360)) % 360) / 90);
+  await expect(wheel.getByRole("status")).toHaveText(
+    ["Alice", "Bob", "Charlie", "Daisy"][index],
+  );
+  const sliceFill = await wheel
+    .locator("svg > g > g")
+    .nth(index)
+    .locator(":scope > path")
+    .evaluate((node) => getComputedStyle(node).fill);
+  await expect(wheel.getByRole("status")).toHaveCSS(
+    "background-color",
+    sliceFill,
+  );
+  await page.screenshot({ path: "test-results/arthur-chooser.png" });
+  await expect(wheel.getByRole("status")).toHaveCount(0, { timeout: 3000 });
+  await page.reload();
+  await expect(wheel.locator("text")).toHaveText([
+    "Alice",
+    "Bob",
+    "Charlie",
+    "Daisy",
+  ]);
+  await expect(wheel).toHaveAttribute("data-spinning", "false");
+  await expect(wheel.getByRole("status")).toHaveCount(0);
+});
+
+test("chooser handles empty and single-name lists and cancels on mode change", async ({
+  page,
+}) => {
+  await page
+    .getByRole("button", { name: "Student chooser", exact: true })
+    .click();
+  const wheel = page.locator(".chooser");
+  await page
+    .getByRole("button", { name: "Switch to interactive mode" })
+    .click();
+  await expect(wheel).toHaveAttribute("aria-disabled", "true");
+  await wheel.click({ force: true });
+  await expect(wheel).toHaveAttribute("data-spinning", "false");
+  await page.getByRole("button", { name: "Switch to editing mode" }).click();
+  const box = (await wheel.boundingBox())!;
+  await page.mouse.dblclick(box.x + box.width / 2, box.y + box.height / 3);
+  const input = page.getByRole("textbox", { name: "Edit chooser names" });
+  await input.fill("Discard me");
+  await input.press("Escape");
+  await expect(wheel.locator("text")).toHaveCount(0);
+  await page.mouse.dblclick(box.x + box.width / 2, box.y + box.height / 3);
+  await input.fill("Alice");
+  await input.press("Control+Enter");
+  await page
+    .getByRole("button", { name: "Switch to interactive mode" })
+    .click();
+  await wheel.focus();
+  await page.keyboard.press("Enter");
+  await expect(wheel.getByRole("status")).toHaveText("Alice", {
+    timeout: 7000,
+  });
+  await page.keyboard.press("Space");
+  await expect(wheel).toHaveAttribute("data-spinning", "true");
+  await page.getByRole("button", { name: "Switch to editing mode" }).click();
+  await expect(wheel).toHaveAttribute("data-spinning", "false");
+  await expect(wheel.getByRole("status")).toHaveCount(0);
+});
+
+test("chooser centre previews a spin in Edit without a popup or moving the object", async ({
+  page,
+}) => {
+  await page
+    .getByRole("button", { name: "Student chooser", exact: true })
+    .click();
+  const wheel = page.locator(".chooser");
+  const box = (await wheel.boundingBox())!;
+  await page.mouse.dblclick(box.x + box.width / 2, box.y + box.height / 3);
+  const input = page.getByRole("textbox", { name: "Edit chooser names" });
+  await input.fill("Alice\nBob\nCharlie");
+  await input.press("Control+Enter");
+  const before = await wheel.locator("svg > g").getAttribute("transform");
+  await wheel.getByRole("button", { name: "Spin chooser preview" }).click();
+  await expect(wheel).toHaveAttribute("data-spinning", "true");
+  await expect(wheel).toHaveAttribute("data-spinning", "false", {
+    timeout: 7000,
+  });
+  await expect(wheel.getByRole("status")).toHaveCount(0);
+  expect(await wheel.locator("svg > g").getAttribute("transform")).not.toBe(
+    before,
+  );
+  expect(await wheel.boundingBox()).toEqual(box);
+  await expect(
+    page.getByRole("button", { name: "Switch to interactive mode" }),
+  ).toBeVisible();
+  // The surrounding wheel still opens the name editor normally.
+  await page.mouse.dblclick(box.x + box.width / 2, box.y + box.height / 3);
+  await expect(input).toHaveValue("Alice\nBob\nCharlie");
+});

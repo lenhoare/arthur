@@ -95,9 +95,6 @@ function Flashcard({
               aria-hidden="true"
             />
             <div className="card-ruling" aria-hidden="true" />
-            <span className="card-side-label">
-              {face === "front" ? "QUESTION" : "ANSWER"}
-            </span>
             <div className="card-text-area">
               {editing && side === face ? (
                 <textarea
@@ -171,7 +168,7 @@ function Flashcard({
 registerComponent<FlashcardData>({
   type: "flashcard",
   version: 1,
-  defaultSize: { width: 444, height: 315 },
+  defaultSize: { width: 360, height: 240 },
   initialData: () => ({ front: "bonjour", back: "hello" }),
   isData: (value): value is FlashcardData =>
     !!value &&
