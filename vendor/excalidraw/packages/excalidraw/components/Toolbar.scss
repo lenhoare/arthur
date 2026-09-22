@@ -24,6 +24,7 @@
   }
 
   .App-toolbar__extra-tools-trigger {
+    order: 90;
     box-shadow: none;
     border: 0;
     background-color: transparent;
@@ -39,6 +40,14 @@
       background: var(--color-primary-light);
       color: var(--color-primary);
     }
+  }
+
+  .App-toolbar__divider.interactive-mode-divider {
+    order: 95;
+  }
+
+  .ToolIcon.interactive-mode-toggle {
+    order: 100;
   }
 
   .App-toolbar__extra-tools-dropdown {

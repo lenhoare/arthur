@@ -287,6 +287,7 @@ registerComponent<MultipleChoiceData>({
   type: "multiple-choice",
   version: 1,
   defaultSize: { width: 520, height: 400 },
+  defaultBackgroundColor: "#ffffff",
   initialData: () => ({
     question: "Which city is the capital of France?",
     choices: ["London", "Paris", "Rome", "Madrid"],

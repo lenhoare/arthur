@@ -7,7 +7,7 @@ Changes are made incrementally in a pinned copy of Excalidraw's source.
 
 ## Flashcard
 
-- Landscape 6 × 4 proportions, initially 360 × 240 pixels, with pastel paper.
+- Landscape 6 × 4 proportions, initially 360 × 240 pixels.
 - Subtle ruled lines spaced 20 pixels apart at the default size, starting below
   a two-line (40 pixel) top margin. No question/answer labels.
 - Plain text on both sides; front text slightly larger and bold.
@@ -49,7 +49,7 @@ Changes are made incrementally in a pinned copy of Excalidraw's source.
   participate in the same save/cancel/undo flow as text.
 - Displayed fenced code retains syntax highlighting. Stroke colour affects
   ordinary text and unhighlighted code, leaving syntax token colours intact.
-- Keep the heading menu and Markdown editing controls; omit the Rich text mode
+- Keep the heading menu at 65% of its original width and Markdown editing controls; omit the Rich text mode
   button. Tables omit the tool-only header row and row-menu column, retaining
   compact add-row and add-column controls.
 - Done, Ctrl/Cmd+Enter or clicking outside commits one native content undo step.
@@ -74,7 +74,7 @@ Changes are made incrementally in a pinned copy of Excalidraw's source.
 
 ## Appear text
 
-- Native toolbar button adds a 360 × 180 plain text block with a transparent background.
+- Native toolbar button adds a 360 × 180 plain text block using the current background colour.
 - Starts faint (15% opacity) with strongly blurred, unreadable text, like frosted glass.
   Clicking in Interact mode restores clear text at full visibility.
   Enter/Space also toggles; Edit mode has a bottom-right eye control.
@@ -98,6 +98,10 @@ Changes are made incrementally in a pinned copy of Excalidraw's source.
 - Native Save/Open, autosave and undo preserve the list; the draw is temporary.
 
 ## Document behaviour
+
+- New objects inherit the editor’s current shape background colour, or transparent
+  when none is selected. Existing objects retain their saved colours. The split-flap
+  face keeps its black-and-white design.
 
 - Content edits, creation, duplication, deletion and geometry changes support undo/redo.
 - Copies are independent, including clipboard copies.

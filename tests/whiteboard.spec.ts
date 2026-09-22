@@ -205,8 +205,8 @@ test("native colour controls style both faces and undo without a canvas rectangl
   await page.locator(".excalidraw").focus();
   await page.keyboard.press("Control+z");
   await expect(
-    cards(page).locator('.card-front .card-paper path[fill="#f9efcd"]'),
-  ).toHaveCount(1);
+    cards(page).locator('.card-front .card-paper path[fill="#b2f2bb"]'),
+  ).toHaveCount(0);
   await page.keyboard.press("Control+Shift+z");
   await expect(
     cards(page).locator('.card-front .card-paper path[fill="#b2f2bb"]'),
@@ -820,7 +820,7 @@ test("appear text edits, fades, reveals in both modes and reloads faint", async 
           (el: any) => el.customData?.arthur?.type === "appear-text",
         )?.backgroundColor,
     )
-    .toBe("transparent");
+    .toBe("#ffffff");
   await expect(block.locator(".appear-text-paper path")).not.toHaveAttribute(
     "fill",
     "#f9efcd",
@@ -915,6 +915,7 @@ test("split-flap chooser settles left to right, previews, and saves entries", as
   await expect(
     board.locator(".flap-tile > .flap-top:not(.flap-turn) > span"),
   ).toHaveText(["A", "L", "E", "X", "A", "N", "D", "R", "A", "", "", ""]);
+  await expect(board).toHaveAttribute("data-settled", "12");
   expect(await board.boundingBox()).toEqual(box);
   const audio = await page.evaluate(() => (window as any).flapAudioMetrics);
   expect(audio.clicks).toBeGreaterThan(0);
@@ -1097,4 +1098,64 @@ test("Markdown syntax colours survive stroke changes while plain text follows st
     "color",
     "rgb(224, 49, 49)",
   );
+});
+
+test("new components use their defaults and Markdown has a compact block menu", async ({
+  page,
+}) => {
+  await page
+    .getByRole("button", { name: "Markdown lesson", exact: true })
+    .click();
+  await expect
+    .poll(
+      async () =>
+        (
+          await scene(page)
+        ).elements.find((el: any) => el.customData?.arthur?.type === "markdown")
+          ?.backgroundColor,
+    )
+    .toBe("#ffffff");
+  for (const [label, type, background] of [
+    ["Flashcard", "flashcard", "#f9efcd"],
+    ["Student chooser", "chooser", "#ffffff"],
+    ["Markdown lesson", "markdown", "#ffffff"],
+    ["Multiple-choice question", "multiple-choice", "#ffffff"],
+    ["Appear text", "appear-text", "transparent"],
+    ["Split-flap chooser", "flap-chooser", "#333333"],
+  ]) {
+    await page.getByRole("button", { name: label, exact: true }).click();
+    await expect
+      .poll(
+        async () =>
+          (await scene(page)).elements
+            .filter((el: any) => el.customData?.arthur?.type === type)
+            .at(-1)?.backgroundColor,
+      )
+      .toBe(background);
+  }
+  const lesson = page.locator(".markdown-panel").last();
+  const box = (await lesson.boundingBox())!;
+  await page.mouse.dblclick(box.x + 100, box.y + 50);
+  const heading = lesson.getByRole("combobox", { name: "Block type" });
+  expect((await heading.boundingBox())!.width).toBeCloseTo(93.6, 1);
+  const sizeMenu = lesson.getByRole("combobox", { name: "Lesson font size" });
+  await expect(sizeMenu).toHaveCSS("width", "72px");
+  for (const property of ["font-family", "font-size", "font-weight"]) {
+    const value = await heading.evaluate(
+      (el, property) => getComputedStyle(el).getPropertyValue(property),
+      property,
+    );
+    await expect(sizeMenu).toHaveCSS(property, value);
+  }
+  const size = await lesson
+    .getByRole("combobox", { name: "Lesson font size" })
+    .boundingBox();
+  const headingBox = (await heading.boundingBox())!;
+  expect(Math.abs(size!.y - headingBox.y)).toBeLessThan(3);
+  await heading.click();
+  await expect(
+    page.getByRole("option", { name: "Heading 2", exact: true }),
+  ).toBeVisible();
+  await page.getByRole("option", { name: "Heading 2", exact: true }).click();
+  await page.screenshot({ path: "test-results/arthur-compact-menu.png" });
 });

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { registerComponent, type ComponentProps } from "./registry";
 import "./flap-chooser.css";
 import { createFlapSound } from "./flapSound";
@@ -35,6 +35,7 @@ function Flap({ character }: { character: string }) {
 
 function FlapChooser({
   data,
+  element,
   interactive,
   editing,
   updateData,
@@ -111,7 +112,12 @@ function FlapChooser({
       crypto.getRandomValues(sample);
     } while (sample[0] >= limit);
     const chosen = names[sample[0] % names.length];
-    const target = letters(chosen);
+    // Every flap takes part in every draw. Shorter entries finish with real
+    // space targets, so their blank flaps settle after the final letter.
+    const target = [
+      ...letters(chosen),
+      ...Array(Math.max(0, slots - letters(chosen).length)).fill(" "),
+    ];
     const reducedMotion = matchMedia(
       "(prefers-reduced-motion: reduce)",
     ).matches;
@@ -152,6 +158,9 @@ function FlapChooser({
   return (
     <div
       className={`flap-chooser ${interactive || editing ? "is-active" : ""}`}
+      style={
+        { "--flap-background": element.backgroundColor } as React.CSSProperties
+      }
       data-spinning={spinning}
       data-settled={settledCount}
       role={interactive ? "button" : "group"}
@@ -261,7 +270,7 @@ registerComponent<FlapData>({
   type: "flap-chooser",
   version: 1,
   defaultSize: { width: 480, height: 56 },
-  defaultBackgroundColor: "#111111",
+  defaultBackgroundColor: "#333333",
   initialData: () => ({ names: [] }),
   isData: (value): value is FlapData =>
     !!value &&

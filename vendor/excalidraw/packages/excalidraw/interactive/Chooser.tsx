@@ -210,10 +210,11 @@ function Chooser({
                         dominantBaseline="middle"
                         fill="currentColor"
                         fontSize={Math.min(
-                          19,
+                          21,
                           420 / names.length,
                           220 / Math.max(name.length, 1),
                         )}
+                        fontWeight="700"
                       >
                         {name}
                       </text>
@@ -274,6 +275,7 @@ registerComponent<ChooserData>({
   type: "chooser",
   version: 1,
   defaultSize: { width: 400, height: 400 },
+  defaultBackgroundColor: "#ffffff",
   initialData: () => ({ names: [] }),
   isData: (value): value is ChooserData =>
     !!value &&

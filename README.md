@@ -18,6 +18,8 @@ npm run dev
 
 ## Use
 
+New objects use the current shape background colour, falling back to transparent.
+
 - **Flashcard:** the card icon in Excalidraw's existing toolbar adds a card.
 - **Student chooser:** the wheel icon adds a chooser. Double-click to enter names,
   one per line. In Interact mode, tap to spin; the result appears for two seconds.

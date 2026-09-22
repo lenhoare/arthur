@@ -169,6 +169,7 @@ registerComponent<FlashcardData>({
   type: "flashcard",
   version: 1,
   defaultSize: { width: 360, height: 240 },
+  defaultBackgroundColor: "#f9efcd",
   initialData: () => ({ front: "bonjour", back: "hello" }),
   isData: (value): value is FlashcardData =>
     !!value &&

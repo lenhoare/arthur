@@ -100,12 +100,12 @@ const DefaultMainMenu: React.FC<{
       <MainMenu.DefaultItems.Help />
       <MainMenu.DefaultItems.ClearCanvas />
       <MainMenu.Separator />
-      <MainMenu.Group title="Excalidraw links">
-        <MainMenu.DefaultItems.Socials />
-      </MainMenu.Group>
-      <MainMenu.Separator />
       <MainMenu.DefaultItems.ToggleTheme />
       <MainMenu.DefaultItems.ChangeCanvasBackground />
+      <MainMenu.Separator />
+      <MainMenu.ItemLink href="https://github.com/excalidraw/excalidraw">
+        This tool uses Excalidraw
+      </MainMenu.ItemLink>
     </MainMenu>
   );
 };

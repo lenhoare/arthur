@@ -1,4 +1,6 @@
 import {
+  createContext,
+  useContext,
   useEffect,
   useMemo,
   useRef,
@@ -32,6 +34,30 @@ import {
 } from "@mdxeditor/editor";
 import "@mdxeditor/editor/style.css";
 import { markdownSizes, type MarkdownSize } from "./markdownSizes";
+
+const SizeMenuContext = createContext<{
+  size: MarkdownSize;
+  changeSize: (size: MarkdownSize) => void;
+} | null>(null);
+
+function SizeMenu() {
+  const context = useContext(SizeMenuContext)!;
+  return (
+    <select
+      className="markdown-size-menu"
+      aria-label="Lesson font size"
+      value={context.size}
+      onChange={(event) =>
+        context.changeSize(event.target.value as MarkdownSize)
+      }
+    >
+      <option value="tiny">Tiny</option>
+      <option value="small">Small</option>
+      <option value="medium">Medium</option>
+      <option value="large">Large</option>
+    </select>
+  );
+}
 
 export default function MarkdownEditor({
   markdown,
@@ -107,6 +133,7 @@ export default function MarkdownEditor({
         toolbarContents: () => (
           <DiffSourceToggleWrapper options={["source"]}>
             <UndoRedo />
+            <SizeMenu />
             <ConditionalContents
               options={[
                 {
@@ -116,7 +143,9 @@ export default function MarkdownEditor({
                 {
                   fallback: () => (
                     <>
-                      <BlockTypeSelect />
+                      <span className="markdown-block-type">
+                        <BlockTypeSelect />
+                      </span>
                       <BoldItalicUnderlineToggles />
                       <ListsToggle />
                       <CreateLink />
@@ -160,23 +189,6 @@ export default function MarkdownEditor({
     >
       <div className="markdown-edit-actions">
         <span>Lesson notes</span>
-        <label className="markdown-size-menu">
-          Size{" "}
-          <select
-            aria-label="Lesson font size"
-            value={size}
-            onChange={(event) => {
-              const next = event.target.value as MarkdownSize;
-              draftSize.current = next;
-              setSize(next);
-            }}
-          >
-            <option value="tiny">Tiny</option>
-            <option value="small">Small</option>
-            <option value="medium">Medium</option>
-            <option value="large">Large</option>
-          </select>
-        </label>
         <button
           type="button"
           onClick={() => {
@@ -190,15 +202,25 @@ export default function MarkdownEditor({
           Done
         </button>
       </div>
-      <MDXEditor
-        markdown={original.current}
-        autoFocus
-        contentEditableClassName="markdown-content"
-        plugins={plugins}
-        onChange={(value, initial) => {
-          if (!initial) draft.current = value;
+      <SizeMenuContext.Provider
+        value={{
+          size,
+          changeSize: (next) => {
+            draftSize.current = next;
+            setSize(next);
+          },
         }}
-      />
+      >
+        <MDXEditor
+          markdown={original.current}
+          autoFocus
+          contentEditableClassName="markdown-content"
+          plugins={plugins}
+          onChange={(value, initial) => {
+            if (!initial) draft.current = value;
+          }}
+        />
+      </SizeMenuContext.Provider>
     </div>
   );
 }

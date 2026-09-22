@@ -103,6 +103,7 @@ registerComponent<MarkdownData>({
   type: "markdown",
   version: 1,
   defaultSize: { width: 640, height: 520 },
+  defaultBackgroundColor: "#ffffff",
   initialData: () => ({
     markdown:
       '# Lesson notes\n\nDouble-click to edit this lesson.\n\n## Key ideas\n\n- Explain the concept\n- Work through an example\n\n| Term | Meaning |\n| --- | --- |\n| Example | Add your explanation |\n\n```python\nprint("Hello, class!")\n```',

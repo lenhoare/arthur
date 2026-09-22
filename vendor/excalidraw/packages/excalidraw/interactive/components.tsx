@@ -28,7 +28,7 @@ export function createComponent(type: string, x: number, y: number) {
     link: null,
     strokeWidth: 1,
     strokeColor: "#474637",
-    backgroundColor: definition.defaultBackgroundColor ?? "#f9efcd",
+    backgroundColor: definition.defaultBackgroundColor ?? "transparent",
     fillStyle: "solid",
     roughness: 0,
     roundness: null,
@@ -83,18 +83,16 @@ export function ComponentHost({
         finishEditing={finishEditing}
         updateData={(data) => {
           app.syncActionResult({
-            elements: app.scene
-              .getElementsIncludingDeleted()
-              .map((current) =>
-                current.id === element.id
-                  ? newElementWith(current, {
-                      customData: {
-                        ...current.customData,
-                        arthur: { ...stored, data },
-                      },
-                    })
-                  : current,
-              ),
+            elements: app.scene.getElementsIncludingDeleted().map((current) =>
+              current.id === element.id
+                ? newElementWith(current, {
+                    customData: {
+                      ...current.customData,
+                      arthur: { ...stored, data },
+                    },
+                  })
+                : current,
+            ),
             captureUpdate: CaptureUpdateAction.IMMEDIATELY,
           });
         }}
