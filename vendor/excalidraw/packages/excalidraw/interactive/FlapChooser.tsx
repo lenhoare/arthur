@@ -112,11 +112,16 @@ function FlapChooser({
       crypto.getRandomValues(sample);
     } while (sample[0] >= limit);
     const chosen = names[sample[0] % names.length];
-    // Every flap takes part in every draw. Shorter entries finish with real
-    // space targets, so their blank flaps settle after the final letter.
+    // Every flap takes part in every draw. Shorter entries are centered with
+    // real space targets, with any odd extra space kept on the right.
+    const chosenLetters = letters(chosen);
+    const spareSlots = Math.max(0, slots - chosenLetters.length);
+    const leftPadding = Math.floor(spareSlots / 2);
+    const rightPadding = spareSlots - leftPadding;
     const target = [
-      ...letters(chosen),
-      ...Array(Math.max(0, slots - letters(chosen).length)).fill(" "),
+      ...Array(leftPadding).fill(" "),
+      ...chosenLetters,
+      ...Array(rightPadding).fill(" "),
     ];
     const reducedMotion = matchMedia(
       "(prefers-reduced-motion: reduce)",
