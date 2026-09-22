@@ -1,0 +1,152 @@
+.flap-chooser {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  container-type: size;
+  pointer-events: none;
+  background: #111;
+  color: #fff;
+  border-radius: 6px;
+  box-shadow: inset 0 0 0 1px #555;
+  font-family: "Segoe UI", system-ui, sans-serif;
+}
+.flap-chooser.is-active {
+  pointer-events: auto;
+}
+.flap-chooser[role="button"] {
+  cursor: pointer;
+  touch-action: manipulation;
+}
+.flap-row {
+  position: absolute;
+  inset: 14% 4% 22%;
+  display: grid;
+  gap: 0.55cqw;
+}
+.flap-tile {
+  position: relative;
+  min-width: 0;
+  height: 100%;
+  perspective: 250px;
+  font-family: ui-monospace, "Courier New", monospace;
+  font-weight: 700;
+}
+.flap-half {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 50%;
+  overflow: hidden;
+  background: #222;
+  border-radius: 3px;
+}
+.flap-half > span {
+  position: absolute;
+  inset: 0;
+  height: 200%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.flap-top {
+  top: 0;
+  box-shadow: inset 0 -1px #050505;
+}
+.flap-bottom {
+  bottom: 0;
+  background: #292929;
+  box-shadow: inset 0 1px #050505;
+}
+.flap-bottom > span {
+  top: -100%;
+}
+.flap-turn {
+  transform-origin: center bottom;
+  backface-visibility: hidden;
+  animation: flap-turn 140ms ease-in forwards;
+  z-index: 1;
+}
+@keyframes flap-turn {
+  from {
+    transform: rotateX(0);
+  }
+  to {
+    transform: rotateX(-180deg);
+  }
+}
+.flap-empty {
+  position: absolute;
+  inset: 14% 4% 22%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3.2cqw;
+  background: #111e;
+  color: #ddd;
+}
+.flap-preview {
+  position: absolute;
+  right: 1%;
+  bottom: 1%;
+  width: 6cqw;
+  height: 6cqw;
+  min-width: 24px;
+  min-height: 24px;
+  padding: 3px;
+  border: 0;
+  background: transparent;
+  color: #ddd;
+  pointer-events: auto;
+  cursor: pointer;
+}
+.flap-preview svg {
+  width: 100%;
+  height: 100%;
+}
+.flap-status {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+.flap-editor {
+  position: absolute;
+  inset: 8% 4%;
+  font-size: 14px;
+}
+.flap-editor label {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.excalidraw .flap-editor textarea {
+  flex: 1;
+  min-height: 0;
+  resize: none;
+  border: 1px solid #777;
+  border-radius: 3px;
+  padding: 4px 8px;
+  background: #222;
+  color: #fff;
+  font: 16px/1.4 "Segoe UI", system-ui, sans-serif;
+}
+@media (prefers-reduced-motion: reduce) {
+  .flap-turn {
+    animation: none;
+    display: none;
+  }
+}
+
+/* Keep list editing comfortable without changing the board geometry. */
+.flap-chooser:has(.flap-editor) {
+  z-index: 2;
+}
+.flap-editor {
+  min-height: 150px;
+  background: #111;
+  padding: 8px;
+  border-radius: 4px;
+  box-shadow: 0 3px 10px #0004;
+}

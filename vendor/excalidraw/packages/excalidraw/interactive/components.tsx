@@ -9,6 +9,10 @@ import type { AppClassProperties } from "../types";
 import { getComponent } from "./registry";
 import "./Flashcard";
 import "./Chooser";
+import "./FlapChooser";
+import "./Markdown";
+import "./MultipleChoice";
+import "./AppearText";
 import "./flashcard.css";
 export { getStoredComponent } from "./data";
 import { getStoredComponent } from "./data";
@@ -24,7 +28,7 @@ export function createComponent(type: string, x: number, y: number) {
     link: null,
     strokeWidth: 1,
     strokeColor: "#474637",
-    backgroundColor: "#f9efcd",
+    backgroundColor: definition.defaultBackgroundColor ?? "#f9efcd",
     fillStyle: "solid",
     roughness: 0,
     roundness: null,

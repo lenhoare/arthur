@@ -1,0 +1,221 @@
+.markdown-panel {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  container-type: size;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  pointer-events: none;
+}
+.markdown-panel.is-active {
+  pointer-events: auto;
+}
+.markdown-paper {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.excalidraw .markdown-content {
+  position: relative;
+  padding: 4cqw;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  font-size: var(--markdown-font-size, 3.125cqw);
+  line-height: 1.55;
+  overflow-wrap: anywhere;
+  color: inherit;
+}
+.markdown-reading {
+  height: 100%;
+  box-sizing: border-box;
+  overflow: auto;
+}
+.excalidraw .markdown-content h1 {
+  font-size: 1.8em;
+}
+.excalidraw .markdown-content h2 {
+  font-size: 1.4em;
+}
+.excalidraw .markdown-content h3 {
+  font-size: 1.15em;
+}
+.excalidraw .markdown-content :is(h1, h2, h3, h4, h5, h6) {
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0.8em 0 0.4em;
+}
+.excalidraw .markdown-content > :first-child {
+  margin-top: 0;
+}
+.excalidraw .markdown-content p {
+  margin: 0.6em 0;
+}
+.excalidraw .markdown-content :is(ul, ol) {
+  padding-left: 1.5em;
+  margin: 0.6em 0;
+}
+.excalidraw .markdown-content strong {
+  font-weight: 700;
+}
+.excalidraw .markdown-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1em 0;
+  font-size: inherit;
+}
+.excalidraw .markdown-content :is(th, td) {
+  border: 1px solid currentColor;
+  padding: 0.4em 0.6em;
+  min-width: 2em;
+}
+.excalidraw .markdown-content th {
+  background: #0000000a;
+  font-weight: 700;
+}
+.excalidraw .markdown-content :is(pre, code) {
+  font-family: ui-monospace, monospace;
+  font-size: 0.9em;
+  background: #0000000a;
+  border-radius: 4px;
+}
+.excalidraw .markdown-content pre {
+  padding: 0.8em;
+  overflow: auto;
+  white-space: pre;
+}
+.excalidraw .markdown-content pre code {
+  font-size: inherit;
+  background: none;
+}
+.excalidraw .markdown-content blockquote {
+  margin: 1em 0;
+  padding-left: 1em;
+  border-left: 3px solid currentColor;
+}
+.excalidraw .markdown-content a {
+  color: inherit;
+  text-decoration: underline;
+}
+.markdown-editor {
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: #fffdf8;
+  color: #252525;
+  border: 1px solid #aaa;
+  box-sizing: border-box;
+}
+.markdown-editor .mdxeditor {
+  min-height: 0;
+  flex: 1;
+  overflow: auto;
+}
+.markdown-edit-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+  font: 14px "Segoe UI", system-ui, sans-serif;
+}
+.markdown-edit-actions span {
+  margin-right: auto;
+}
+.markdown-edit-actions button {
+  border: 1px solid #bbb;
+  border-radius: 4px;
+  background: #fff;
+  color: #252525;
+  padding: 4px 10px;
+  cursor: pointer;
+}
+.markdown-editor [role="toolbar"] {
+  flex-wrap: wrap;
+  top: 0;
+  position: sticky;
+  z-index: 2;
+}
+.mdxeditor-popup-container {
+  z-index: 1000;
+  pointer-events: auto;
+}
+
+.markdown-edit-actions button {
+  font: inherit;
+}
+
+/* MDXEditor's tool-only header and row-menu column are not lesson content.
+   Keep its small add-column and add-row buttons on the outer edges. */
+.markdown-editor table:has([data-tool-cell]) > thead,
+.markdown-editor table:has([data-tool-cell]) > colgroup,
+.markdown-editor
+  table:has([data-tool-cell])
+  > tbody
+  > tr
+  > [data-tool-cell]:first-child,
+.markdown-editor table:has([data-tool-cell]) > tfoot > tr > :first-child {
+  display: none;
+}
+.excalidraw .markdown-editor table > tbody > tr > [data-tool-cell][rowspan],
+.excalidraw .markdown-editor table > tfoot > tr > :last-child {
+  width: 28px;
+  min-width: 0;
+  padding: 0;
+}
+.excalidraw .markdown-editor table > tfoot > tr > [data-tool-cell] {
+  padding: 0;
+  height: 28px;
+}
+
+.markdown-size-menu {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+.markdown-size-menu select {
+  font: inherit;
+  color: #252525;
+  background: #fff;
+  border: 1px solid #bbb;
+  border-radius: 4px;
+  padding: 4px;
+}
+.excalidraw .markdown-content .cm-editor {
+  font-size: 0.9em;
+}
+/* Plain code inherits the chosen stroke. Only syntax tokens override it. */
+.excalidraw .markdown-reading .hljs {
+  color: inherit;
+}
+.excalidraw
+  .markdown-reading
+  :is(.hljs-keyword, .hljs-selector-tag, .hljs-meta) {
+  color: #770088;
+}
+.excalidraw .markdown-reading :is(.hljs-string, .hljs-regexp, .hljs-addition) {
+  color: #a11;
+}
+.excalidraw .markdown-reading :is(.hljs-number, .hljs-literal, .hljs-atom) {
+  color: #116644;
+}
+.excalidraw
+  .markdown-reading
+  :is(.hljs-built_in, .hljs-type, .hljs-title, .hljs-attribute, .hljs-attr, .hljs-selector-class, .hljs-selector-id) {
+  color: #0055aa;
+}
+.excalidraw .markdown-reading :is(.hljs-comment, .hljs-quote) {
+  color: #996600;
+}
+.excalidraw .markdown-reading :is(.hljs-tag, .hljs-name) {
+  color: #117700;
+}
+.excalidraw .markdown-reading .hljs-deletion {
+  color: #a11;
+}
+.excalidraw .markdown-reading .hljs-emphasis {
+  font-style: italic;
+}
+.excalidraw .markdown-reading .hljs-strong {
+  font-weight: 700;
+}

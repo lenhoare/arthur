@@ -14,6 +14,7 @@ interface ComponentDefinition<T> {
   type: string;
   version: number;
   defaultSize: { width: number; height: number };
+  defaultBackgroundColor?: string;
   initialData: () => T;
   isData: (value: unknown) => value is T;
   View: ComponentType<ComponentProps<T>>;

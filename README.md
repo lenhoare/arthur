@@ -24,6 +24,23 @@ npm run dev
   The label matches the winning slice. In Edit mode, press the centre circle to
   spin without a label; double-click elsewhere to edit names.
   Names stay in the draw and save with the board.
+- **Markdown lesson:** the document icon adds lesson notes. Double-click to use
+  MDXEditor, with headings, lists, tables, code blocks and a Markdown source view.
+  Done, Ctrl/Cmd+Enter or clicking outside saves; Cancel or Escape discards edits.
+  The Size menu sets Tiny, Small, Medium or Large for the whole lesson, still
+  scaling with the component. Interact mode presents the lesson with scrolling,
+  links and syntax-coloured code; stroke colour changes only ordinary text.
+- **Multiple-choice question:** the checklist icon adds a question. Double-click
+  to edit the question, choices and correct answer. In Interact mode, click to
+  reveal/hide the answer; in Edit mode, use the bottom-right eye control.
+  Reopened boards keep answers hidden.
+- **Appear text:** the T-and-sparkles icon adds a faint text block. Double-click
+  to edit. Click in Interact mode, or use the corner eye in Edit mode, to toggle
+  between faint and fully visible. Reopened boards start faint.
+- **Split-flap chooser:** the flap-board icon adds a compact black-and-white
+  chooser (480 × 56 by default), with mechanical flap sounds. Double-click for a list of people or things, one per line. Click in
+  Interact mode or use the corner preview button in Edit mode. Letters settle
+  from left to right; the result stays until the next draw or mode change.
 - **Edit / Interact:** the labelled toolbar control switches between editing
   and using the board. Alt+R uses the same native mode action. The original
   unlabelled padlock still keeps a drawing tool active (Q).
@@ -41,7 +58,7 @@ npm run dev
 - `vendor/excalidraw/packages/excalidraw/components/InteractiveTools.tsx`: native
   toolbar additions using Excalidraw's ToolButton and existing view-mode action.
 - `vendor/excalidraw/packages/excalidraw/interactive/`: registry, component data,
-  creation, flashcard and student chooser rendering.
+  creation, flashcard, student chooser and Markdown rendering.
 - `components/App.tsx` in the editor: component rendering and direct editing
   through native hit testing, without a surrounding DOM event interceptor.
 - `renderer/renderElement.ts` and `scene/Shape.ts`: live components render their

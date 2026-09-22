@@ -24,13 +24,42 @@ export function InteractiveTools({
     <>
       {!interactive &&
         !modeOnly &&
-        ["flashcard", "chooser"].map((type) => (
+        [
+          "flashcard",
+          "chooser",
+          "flap-chooser",
+          "markdown",
+          "multiple-choice",
+          "appear-text",
+        ].map((type) => (
           <ToolButton
             key={type}
             type="button"
-            aria-label={type === "flashcard" ? "Flashcard" : "Student chooser"}
+            aria-label={
+              type === "flap-chooser"
+                ? "Split-flap chooser"
+                : type === "appear-text"
+                ? "Appear text"
+                : type === "multiple-choice"
+                ? "Multiple-choice question"
+                : type === "markdown"
+                ? "Markdown lesson"
+                : type === "flashcard"
+                ? "Flashcard"
+                : "Student chooser"
+            }
             title={
-              type === "flashcard" ? "Add flashcard" : "Add student chooser"
+              type === "flap-chooser"
+                ? "Add split-flap chooser"
+                : type === "appear-text"
+                ? "Add appear text"
+                : type === "multiple-choice"
+                ? "Add multiple-choice question"
+                : type === "markdown"
+                ? "Add Markdown lesson"
+                : type === "flashcard"
+                ? "Add flashcard"
+                : "Add student chooser"
             }
             icon={
               <svg
@@ -39,7 +68,27 @@ export function InteractiveTools({
                 stroke="currentColor"
                 strokeWidth="1.5"
               >
-                {type === "chooser" ? (
+                {type === "flap-chooser" ? (
+                  <>
+                    <rect x="2" y="5" width="20" height="14" rx="2" />
+                    <path d="M2 12h20M9 5v14M16 5v14" />
+                  </>
+                ) : type === "appear-text" ? (
+                  <>
+                    <path d="M3 5h12M9 5v15M18 2v6m-3-3h6M17 13v6m-3-3h6" />
+                  </>
+                ) : type === "multiple-choice" ? (
+                  <>
+                    <path d="M9 5h12M9 12h12M9 19h12M2 12l2 2 3-4" />
+                    <circle cx="4" cy="5" r="1.5" />
+                    <circle cx="4" cy="19" r="1.5" />
+                  </>
+                ) : type === "markdown" ? (
+                  <>
+                    <rect x="4" y="2" width="16" height="20" rx="1" />
+                    <path d="M8 7h8M8 11h8M8 15h3m2 0h3M8 18h3m2 0h3" />
+                  </>
+                ) : type === "chooser" ? (
                   <>
                     <circle cx="12" cy="12" r="9" />
                     <path d="M12 3v18M3 12h18M6 6l12 12M6 18L18 6" />

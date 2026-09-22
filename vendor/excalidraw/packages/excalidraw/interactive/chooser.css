@@ -53,13 +53,13 @@
   overflow-wrap: anywhere;
   pointer-events: none;
 }
-.chooser-result {
+.excalidraw .chooser-result {
   padding: 4% 2%;
   border-radius: 8px;
   color: #242424;
   box-shadow: 0 3px 18px #0003;
   font-size: 8cqw;
-  font-weight: 700;
+  font-weight: 800;
 }
 .chooser-hint {
   font-size: 4.5cqw;

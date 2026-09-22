@@ -38,6 +38,65 @@ Changes are made incrementally in a pinned copy of Excalidraw's source.
 - Names use native saving, loading and undo. Spin position/results are temporary.
 - Native background colour tints the segments; stroke colour/width style the wheel.
 
+## Markdown lessons
+
+- Native document toolbar button adds a 640 × 520 lesson panel.
+- Double-click for MDXEditor visual editing: headings, emphasis, lists, quotes,
+  links, tables and fenced code blocks, plus a Markdown source view.
+- Whole-lesson baseline size menu: Tiny, Small, Medium and Large. At the default
+  width these are 12, 16, 20 and 26 pixels; all scale with the component width.
+  Older documents default to Medium. Size changes preview while editing and
+  participate in the same save/cancel/undo flow as text.
+- Displayed fenced code retains syntax highlighting. Stroke colour affects
+  ordinary text and unhighlighted code, leaving syntax token colours intact.
+- Keep the heading menu and Markdown editing controls; omit the Rich text mode
+  button. Tables omit the tool-only header row and row-menu column, retaining
+  compact add-row and add-column controls.
+- Done, Ctrl/Cmd+Enter or clicking outside commits one native content undo step.
+  Cancel or Escape discards the session; typing uses the editor’s own undo.
+- Interact mode displays formatted Markdown, with scrolling and links.
+- Markdown text is stored in customData and uses native Save/Open, duplication
+  and undo. Background and border use the native element’s shape styles.
+- Code is displayed, not executed. JSX/MDX component execution is not enabled.
+
+## Multiple-choice questions
+
+- Native checklist toolbar button adds a 520 × 400 question panel.
+- Double-click to edit plain question/choice text and select one correct answer.
+  Start with four choices; allow adding/removing choices (2–26).
+- Done, Ctrl/Cmd+Enter or clicking outside saves; Cancel or Escape discards edits.
+- Interact mode: click/tap or Enter/Space toggles the answer reveal.
+- Edit mode: a bottom-right eye control toggles the reveal without moving the object.
+- Reveal highlights the correct option with a tick; no individual student scoring.
+- Content and the correct answer use native Save/Open, duplication and undo.
+  Reveal is temporary, adds no undo steps and resets on document load/content changes.
+- Native background, stroke and opacity controls style the panel.
+
+## Appear text
+
+- Native toolbar button adds a 360 × 180 plain text block with a transparent background.
+- Starts faint (15% opacity) with strongly blurred, unreadable text, like frosted glass.
+  Clicking in Interact mode restores clear text at full visibility.
+  Enter/Space also toggles; Edit mode has a bottom-right eye control.
+- Double-click to edit at full opacity. Click away or Ctrl/Cmd+Enter saves;
+  Escape cancels. The corner control can save and reveal the edited text.
+- Uses native shape colours/styles, resizing, saving, duplication and undo.
+- Visibility is temporary, adds no undo steps and resets to faint on reopening.
+
+## Split-flap chooser
+
+- Separate native toolbar component, 480 × 56 pixels, black casing and white letters.
+- Double-click to edit people/things, one per line; ignore blank lines.
+- Interact click/tap or Enter/Space starts an equal-probability random draw.
+  An Edit-mode corner control previews the same animation.
+- Flaps cycle with slowing intervals and mechanical clicking sounds, then settle left to right. Keep the chosen
+  entry visible on the board without a popup until the next draw or mode change.
+- Display uppercase, retaining the original entry text in saved data and announcements.
+  Size the row for the longest entry; retain spaces and accented letters.
+- Ignore repeat taps during a draw; cancel animation on mode/content changes.
+  Reduced-motion mode reveals letters sequentially without flap motion or scrambling.
+- Native Save/Open, autosave and undo preserve the list; the draw is temporary.
+
 ## Document behaviour
 
 - Content edits, creation, duplication, deletion and geometry changes support undo/redo.
@@ -53,8 +112,8 @@ Changes are made incrementally in a pinned copy of Excalidraw's source.
 
 This slice establishes the native toolbar, document and styling integration.
 It does not include
-collaboration, rich text, images in cards, AI, networking, actions or third-party code.
-Static image export of card contents is deferred; native Excalidraw export may show
+collaboration, images in cards, AI, networking, actions or executable third-party code.
+Static image export of interactive component contents is deferred; native Excalidraw export may show
 embed placeholders. The interactive document is the supported sharing format.
 
 ## Evidence required
